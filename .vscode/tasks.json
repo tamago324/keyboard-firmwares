@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "gku34",
+            "type": "shell",
+            "command": "curl",
+            "args": [
+                "-X",
+                "POST",
+                "-H",
+                "Content-Type: application/json",
+                "-d",
+                "{\"kb\": \"gku34/rev01\", \"km\": \"tamago324\", \"tag\": \"0.21.5\"}",
+                "127.0.0.1:3123/build/qmk"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
