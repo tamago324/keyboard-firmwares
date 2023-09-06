@@ -87,17 +87,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-// <
-const key_override_t syounari = ko_make_basic(MOD_MASK_CTRL, KC_COMM, S(KC_COMM));
-// >
-const key_override_t dainari = ko_make_basic(MOD_MASK_CTRL, KC_DOT, S(KC_DOT));
-
-const key_override_t **key_overrides = (const key_override_t *[]) {
-  &syounari,
-  &dainari,
-  NULL
-};
-
 // LCTL_T(KC_A) は Lower レイヤーのためのもの
 // Lower の Ctrl をおそうとして、a が入力されるのを防ぐため
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

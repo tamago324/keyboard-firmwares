@@ -1,9 +1,5 @@
 COMBO_ENABLE = yes
 
-KEY_OVERRIDE_ENABLE = yes
-
-# TAP_DANCE_ENABLE = yes
-
 # https://zenn.dev/koron/articles/98324ab760e83a
 LTO_ENABLE = yes
 CONSOLE_ENABLE = no
