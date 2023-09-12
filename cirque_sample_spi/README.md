@@ -1,5 +1,7 @@
 SPI で Cirque Trackpad を使うファームウェアのサンプル
 
+![](schematic.png)
+
 * config.h
   * `// SPI の設定` のところは、使用するピンによって変える
     * `SPI_DRIVER`: `SPID0` or `SPID1`
