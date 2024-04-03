@@ -36,6 +36,9 @@ nix-shell --run 'sudo make tamago324/gku34/rev01:tamago324'
 
 ### [gpk_fwmaker](https://github.com/darakuneko/gpk_fwmaker)
 
+gpk_fwmaker で docker compose up (初回は docker compose up --build)
+
+
 `keyboards\tamago324\gku34` を `C:\Users\xxxx\GPKFW\gku34` のように配置し、以下のコマンドを実行
 
 Windows の場合
@@ -47,6 +50,17 @@ curl -X POST -H "Content-Type: application/json" -d "{\"kb\": \"gku34/rev01\", \
 # vial の場合
 curl -X POST -H "Content-Type: application/json" -d "{\"kb\": \"gku34/rev01\", \"km\": \"vial\"}" 127.0.0.1:3123/build/vial
 ```
+
+Linux の場合
+
+```
+# qmk
+curl -X POST -H "Content-Type: application/json" -d "{\"kb\": \"gku34/rev01\", \"km\": \"tamago324\", \"tag\": \"0.21.5\"}" 127.0.0.1:3123/build/qmk
+
+# vial
+curl -X POST -H "Content-Type: application/json" -d '{"kb": "gku34/rev01", "km": "vial"}' 127.0.0.1:3123/build/vial
+```
+
 
 ## ファームウェアの書き込み
 
