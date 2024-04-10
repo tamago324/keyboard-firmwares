@@ -1,0 +1,23 @@
+name: Build a firmware by user
+
+on:
+  workflow_dispatch:
+    inputs:
+      keybaord:
+        required: true
+        type: choice
+        options:
+          - gku34
+      keymap:
+        required: true
+        type: string
+        default: 'tamago324'
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-firmware.yml
+    with:
+      qmk_version: '0.21.5'
+      keyboard: ${{ inputs.keybaord }}
+      keymap: ${{ inputs.keymap }}
+    
