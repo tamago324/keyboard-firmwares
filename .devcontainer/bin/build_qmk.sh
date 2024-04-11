@@ -12,7 +12,7 @@ usage() {
     echo "  Options:"
     echo "    -kb <keyboard>       Specify the keyboard name"
     echo "    -km <keymap>         Specify the keymap name"
-    echo "    -version <version>   Specify the QMK firmware version"
+    echo "    -version <version>   Specify the QMK firmware version. If not specified, the latest tag will be used."
     echo "    --versions           List available QMK firmware versions"
     echo "    --help               Show this help message and exit"
     exit 1
@@ -48,7 +48,7 @@ while [[ $# -gt 0 ]]; do
         ;;
         *)
         # 入力が "gku34:tamago324" 形式の場合、それぞれの値を -kb と -km オプションに変換
-        if [[ "$key" =~ ^([a-zA-Z0-9/]+):([a-zA-Z0-9]+)$ ]]; then
+        if [[ "$key" =~ ^([a-zA-Z0-9_/]+):([a-zA-Z0-9_]+)$ ]]; then
             keyboard="${BASH_REMATCH[1]}"
             keymap="${BASH_REMATCH[2]}"
         else
@@ -91,28 +91,38 @@ qmk git-submodule
 # QMKをビルド
 if ! qmk compile -j 4 -kb "$keyboard" -km "$keymap"; then
     echo ""
-    echo "********************"
+    echo "****************"
     echo "* Build failed *"
-    echo "********************"
+    echo "****************"
     echo ""
     exit 1
 fi
 
+# $keyboard 内の全ての `/` を `_` に置換
+keyboard_sanitized=${keyboard//\//_}
 # ビルドが成功した場合は、ファイルをコピー
-uf2_filename="$keyboard"_"$keymap".uf2
+uf2_filename="${keyboard_sanitized}_$keymap.uf2"
+hex_filename="${keyboard_sanitized}_$keymap.hex"
+
 if [ -f "$uf2_filename" ]; then
     cp "$uf2_filename" /workspace/"$uf2_filename" || exit 1
+    copy_success="true"
+elif [ -f "$hex_filename" ]; then 
+    cp "$hex_filename" /workspace/"$hex_filename" || exit 1
+    copy_success="true"
+else
+    echo ""
+    echo "*************************************"
+    echo "* Failed to find the generated file *"
+    echo "*************************************"
+    echo ""
+    exit 1
+fi
+
+if [ "$copy_success" = "true" ]; then
     echo ""
     echo "********************"
     echo "* Build successful *"
     echo "********************"
     echo ""
-else
-    echo ""
-    echo "********************************************************"
-    echo "* Failed to find the generated UF2 file: $uf2_filename *"
-    echo "********************************************************"
-    echo ""
-    exit 1
 fi
-
