@@ -34,8 +34,8 @@ for dir in /workspace/keyboards/*/; do
 done
 
 # ビルドのスクリプトを実行できるようにする
-chmod +x /workspace/bin/build_qmk.sh
+chmod +x /workspace/.devcontainer/bin/build_qmk.sh
 ln -s $_ /usr/local/bin/build_qmk
 
-chmod +x /workspace/bin/build_vial.sh
+chmod +x /workspace/.devcontainer/bin/build_vial.sh
 ln -s $_ /usr/local/bin/build_vial
