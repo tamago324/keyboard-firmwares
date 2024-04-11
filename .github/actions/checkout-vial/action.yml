@@ -15,11 +15,9 @@ runs:
         path: ${{ inputs.path }}
         repository: vial-kb/vial-qmk
         submodules: recursive
-        ref: ${{ inputs.version }}
         
     - name: Setup Vial
       shell: bash
       run: |
         cd ${{ inputs.path }}
         make git-submodule
-        cd ..

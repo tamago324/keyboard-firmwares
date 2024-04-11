@@ -25,7 +25,7 @@ jobs:
       
       # 対象の keyboard のフォルダを vial にコピーする
       - name: Install a link to own source
-        run: ln -s $(pwd)/${{ inputs.keyboard }} __vial__/keyboards/gku34
+        run: ln -s $(pwd)/keyboards/${{ inputs.keyboard }} __vial__/keyboards/${{ inputs.keyboard }}
         
       - name: Compile and link
         run: |

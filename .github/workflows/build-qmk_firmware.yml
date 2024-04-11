@@ -33,7 +33,7 @@ jobs:
         
       # 対象の keyboard のフォルダを qmk_firmware にコピーする
       - name: Install a link to own source
-        run: ln -s $(pwd)/${{ inputs.keyboard }} __qmk__/keyboards/gku34
+        run: ln -s $(pwd)/keyboards/${{ inputs.keyboard }} __qmk__/keyboards/${{ inputs.keyboard }}
         
       - name: Compile and link
         run: qmk compile -j 4 -kb ${{ inputs.keyboard }} -km ${{ inputs.keymap }}
