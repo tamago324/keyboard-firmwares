@@ -1,0 +1,13 @@
+{
+    "name": "QMK and Vial build environment",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "workspace",
+    "workspaceFolder": "/workspace",
+    "postCreateCommand": "/bin/bash .devcontainer/postCreateCommand.sh",
+    // CMD の代わりに /bin/sh -c "while sleep 1000; do :; done" を実行するかどうかを指定
+    "overrideCommand": true,
+    // // DevContainerからホストOSのdockerを呼び出せるようにする機能を追加
+    // "features": {
+    //     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    // }
+}
