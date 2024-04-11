@@ -56,7 +56,6 @@ while [[ $# -gt 0 ]]; do
             echo "Unknown option: $key"
             usage
         fi
-        shift # 次のオプションへ移動
         ;;
     esac
     shift # 次のオプションへ移動
@@ -79,10 +78,15 @@ fi
 cd /workspace/__qmk__ || exit 1
 
 # -versionオプションが指定されている場合は指定されたバージョンにチェックアウト
-if [ -n "$version" ]; then
-    git checkout tags/"$version" || exit 1
-    qmk git-submodule
+# バージョンが指定されていない場合、最新のタグにチェックアウト
+if [ -z "$version" ]; then
+    echo "Version not specified. Checking out the latest tag..."
+    version=$(git describe --tags `git rev-list --tags --max-count=1`)
 fi
+
+echo "Checking out version: $version"
+git checkout tags/"$version" || exit 1
+qmk git-submodule
 
 # QMKをビルド
 if ! qmk compile -j 4 -kb "$keyboard" -km "$keymap"; then
