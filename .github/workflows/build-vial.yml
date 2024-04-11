@@ -6,15 +6,15 @@ on:
       keyboard:
         type: string
         required: true
-      keymap:
-        type: string  
-        required: true
         
 jobs:
   build:
-    name: Build a Vial firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
+    name: Build a Vial firmware ${{ inputs.keyboard }}
     
     runs-on: ubuntu-latest
+    # ステップを実行するコンテナイメージ
+    container:
+      image: ghcr.io/qmk/qmk_cli:latest
     
     steps:
       - name: Checkout source
@@ -28,10 +28,10 @@ jobs:
         run: ln -s $(pwd)/${{ inputs.keyboard }} __vial__/keyboards/gku34
         
       - name: Compile and link
-        run: make ${{ inputs.keyboard }}:${{ inputs.keymap }}
+        run: make ${{ inputs.keyboard }}:vial
 
       - name: Archive built firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.keyboard }}-${{ inputs.keymap }}-vial-firmware
+          name: ${{ inputs.keyboard }}-vial-firmware
           path: __vial__/*.uf2
