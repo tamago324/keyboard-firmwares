@@ -1,4 +1,4 @@
-name: Build a firmware
+name: Build a QMK firmware
 
 on: 
   workflow_call:
@@ -16,7 +16,7 @@ on:
         
 jobs:
   build:
-    name: Build a firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
+    name: Build a QMK firmware ${{ inputs.keyboard }}:${{ inputs.keymap }}
     
     # runner を指定
     runs-on: ubuntu-latest

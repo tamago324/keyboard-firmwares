@@ -1,0 +1,22 @@
+name: Build a vial by user
+
+on:
+  workflow_dispatch:
+    inputs:
+      keybaord:
+        required: true
+        type: choice
+        options:
+          - gku34
+      keymap:
+        required: true
+        type: string
+        default: 'tamago324'
+
+jobs:
+  build:
+    uses: ./.github/workflows/build-vial.yml
+    with:
+      keyboard: ${{ inputs.keybaord }}
+      keymap: ${{ inputs.keymap }}
+    
