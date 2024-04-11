@@ -4,8 +4,8 @@
 ## コンパイル
 
 ```sh
-$ build_qmk -kb <keyboard> -km <keymap> [-version <version>]
-$ build_vial -kb <keyboard>
+$ build qmk -kb <keyboard> -km <keymap> [-version <version>]
+$ build vial -kb <keyboard>
 ```
 
 ## 環境をリセットしたいとき
