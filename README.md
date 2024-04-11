@@ -3,7 +3,7 @@
 
 ## コンパイル
 
-```
+```sh
 $ build_qmk -kb <keyboard> -km <keymap> [-version <version>]
 $ build_vial -kb <keyboard>
 ```
