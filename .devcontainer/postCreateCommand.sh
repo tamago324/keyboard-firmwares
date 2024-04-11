@@ -36,3 +36,6 @@ done
 # ビルドのスクリプトを実行できるようにする
 chmod +x /workspace/.devcontainer/bin/build.sh
 ln -s $_ /usr/local/bin/build
+
+# プロンプトを見やすくする
+echo 'PS1="\[\e[34m\]\w\[\e[m\]\$ "' > $HOME/.bashrc
