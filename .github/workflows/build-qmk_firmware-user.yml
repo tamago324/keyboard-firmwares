@@ -1,4 +1,4 @@
-name: Build a firmware by user
+name: "[Run] Build a QMK firmware"
 
 on:
   workflow_dispatch:

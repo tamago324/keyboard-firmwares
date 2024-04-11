@@ -1,4 +1,4 @@
-name: Build a vial by user
+name: "[Run] Build a vial"
 
 on:
   workflow_dispatch:
