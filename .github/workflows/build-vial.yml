@@ -28,7 +28,7 @@ jobs:
         run: ln -s $(pwd)/${{ inputs.keyboard }} __vial__/keyboards/gku34
         
       - name: Compile and link
-        run: make ${{ inputs.keyboard }}:vial
+        run: make vial_example/vial_atmega32u4:default
 
       - name: Archive built firmware
         uses: actions/upload-artifact@v4
