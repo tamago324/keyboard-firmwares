@@ -35,7 +35,14 @@ done
 
 # ビルドのスクリプトを実行できるようにする
 chmod +x /workspace/.devcontainer/bin/build.sh
-ln -s $_ /usr/local/bin/build
+if [ ! -e "/usr/local/bin/build" ]; then
+    ln -s /workspace/.devcontainer/bin/build.sh /usr/local/bin/build
+fi
 
 # プロンプトを見やすくする
-echo 'PS1="\[\e[34m\]\w\[\e[m\]\$ "' >> $HOME/.bashrc
+echo 'PS1="\[\e[34m\]\w\[\e[m\]\$ "' >>$HOME/.bashrc
+
+echo '. /workspace/.devcontainer/bin/_build_completions' >>$HOME/.bashrc
+
+# 追加しておく
+git config --global --add safe.directory /workspace
