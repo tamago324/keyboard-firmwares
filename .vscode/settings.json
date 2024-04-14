@@ -7,5 +7,9 @@
             ],
             "url": "https://raw.githubusercontent.com/qmk/qmk_firmware/master/data/schemas/keyboard.jsonschema"
         }
+    ],
+    "git.ignoredRepositories": [
+        "__qmk__",
+        "__vial__",
     ]
 }
