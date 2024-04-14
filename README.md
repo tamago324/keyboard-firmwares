@@ -15,3 +15,4 @@ $ build vial -kb <keyboard>
 ## 懸念点
 
 * `__qmk__` と `__vial__` のディレクトリがホスト側にも配置されてしまう
+  * そもそも、git submodule ではだめなの？
