@@ -34,15 +34,16 @@ for dir in /workspace/keyboards/*/; do
 done
 
 # ビルドのスクリプトを実行できるようにする
-chmod +x /workspace/.devcontainer/bin/build.sh
-if [ ! -e "/usr/local/bin/build" ]; then
-    ln -s /workspace/.devcontainer/bin/build.sh /usr/local/bin/build
+FWBUILD_SH="/workspace/.devcontainer/bin/fwbuild.sh"
+chmod +x $FWBUILD_SH
+if [ ! -e "/usr/local/bin/fwbuild" ]; then
+    ln -s $FWBUILD_SH /usr/local/bin/fwbuild
 fi
 
 # プロンプトを見やすくする
 echo 'PS1="\[\e[34m\]\w\[\e[m\]\$ "' >>$HOME/.bashrc
 
-echo '. /workspace/.devcontainer/bin/_build_completions' >>$HOME/.bashrc
+echo '. /workspace/.devcontainer/bin/_fwbuild_completions' >>$HOME/.bashrc
 
 # 追加しておく
 git config --global --add safe.directory /workspace

@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# keyboards ディレクトリ内で keymaps/ ディレクトリを含むキーボードディレクトリのみをリストアップする関数
+list_keyboards_with_keymaps() {
+    # find コマンドを使って、keymaps/ サブディレクトリを持つディレクトリを検索
+    local keyboards=$(find /workspace/keyboards -type d -exec test -d '{}/keymaps' \; -print | sed 's|/workspace/keyboards/||g')
+
+    # find の結果を改行で分割して配列に格納
+    local IFS=$'\n'
+    local keyboard_list=($keyboards)
+    unset IFS
+
+    # 配列から空白文字で結合された文字列を生成
+    local list=""
+    for item in "${keyboard_list[@]}"; do
+        # ディレクトリパスから最後のスラッシュを削除
+        list+="$item "
+    done
+
+    echo "$list"
+}
+
+_fwbuild_completions() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    local prev=${COMP_WORDS[COMP_CWORD - 1]}
+
+    if [ $COMP_CWORD -eq 1 ]; then
+        # 1つ目の候補を返す
+        COMPREPLY=($(compgen -W "qmk vial" -- "$cur"))
+
+    # vial
+    elif [ "${COMP_WORDS[1]}" = "vial" ]; then
+        COMPREPLY=($(compgen -W "$(list_keyboards_with_keymaps)" -- "$cur"))
+
+    # qmk
+    elif [ "${COMP_WORDS[1]}" = "qmk" ]; then
+
+        local opts="-v --versions --help"
+
+        # もし '-v' オプションが既に入力されている場合、補完候補から '-v' を除外する
+        if [[ " ${COMP_WORDS[@]} " =~ " -v " ]]; then
+            opts=${opts//-v /}
+            opts=${opts//--versions /}
+            opts=${opts//--help /}
+        fi
+
+        # 既に入力している値は取り除いたものを返す
+        COMPREPLY=($(compgen -W "$opts" -- "$cur"))
+    fi
+
+}
+
+complete -F _fwbuild_completions fwbuild

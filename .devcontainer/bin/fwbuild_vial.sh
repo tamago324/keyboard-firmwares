@@ -2,9 +2,9 @@
 
 # ヘルプメッセージの定義
 usage() {
-    echo "usage: build vial -kb <keyboard>"
-    echo "       build vial <keyboard>"
-    echo "       build vial --help"
+    echo "usage: fwbuild vial -kb <keyboard>"
+    echo "       fwbuild vial <keyboard>"
+    echo "       fwbuild vial --help"
     echo "  Options:"
     echo "    -kb <keyboard>       Specify the keyboard name"
     echo "    --help               Show this help message and exit"

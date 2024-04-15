@@ -4,8 +4,8 @@
 ## コンパイル
 
 ```sh
-$ build qmk -kb <keyboard> -km <keymap> [-version <version>]
-$ build vial -kb <keyboard>
+$ fwbuild qmk <keyboard>:<keymap> [-v <version>]
+$ fwbuild vial <keyboard>
 ```
 
 ## 環境をリセットしたいとき
@@ -16,3 +16,4 @@ $ build vial -kb <keyboard>
 
 * `__qmk__` と `__vial__` のディレクトリがホスト側にも配置されてしまう
   * そもそも、git submodule ではだめなの？
+    * setup するコマンドも自動でやってほしいから、今のままにしておく

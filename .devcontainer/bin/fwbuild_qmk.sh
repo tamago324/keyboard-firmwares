@@ -5,16 +5,17 @@ version=""
 
 # ヘルプメッセージの定義
 usage() {
-    echo "Usage: build qmk [-kb <keyboard>|-km <keymap>] [-version <version>]"
-    echo "       build qmk <keyboard>:<keymap> [-version <version>]"
-    echo "       build qmk --versions"
-    echo "       build qmk --help"
-    echo "  Options:"
-    echo "    -kb <keyboard>       Specify the keyboard name"
-    echo "    -km <keymap>         Specify the keymap name"
-    echo "    -version <version>   Specify the QMK firmware version. If not specified, the latest tag will be used."
-    echo "    --versions           List available QMK firmware versions"
-    echo "    --help               Show this help message and exit"
+    echo "fwbuild qmk <options>"
+    echo ""
+    echo "Commands:"
+    echo "  fwbuild qmk <keyboard>:<keymap> [-v <version>]"
+    echo "  fwbuild qmk --versions"
+    echo "  fwbuild qmk --help"
+    echo ""
+    echo "Options:"
+    echo "  -v <version>   Specify the QMK firmware version. If not specified, the latest tag will be used."
+    echo "  --versions     List available QMK firmware versions"
+    echo "  --help         Show this help message and exit"
     exit 1
 }
 
@@ -23,30 +24,22 @@ while [[ $# -gt 0 ]]; do
     key="$1"
 
     case $key in
-        --help)
+    --help)
         usage
         exit 0
         ;;
-        -kb)
-        keyboard="$2"
-        shift # オプション引数を飛ばす
-        ;;
-        -km)
-        keymap="$2"
-        shift # オプション引数を飛ばす
-        ;;
-        -version)
+    -v)
         version="$2"
         shift # オプション引数を飛ばす
         ;;
-        --versions)
-        if [ -n "$keyboard" ] || [ -n "$keymap" ] || [ -n "$version" ]; then
-            echo "[build_qmk] '--versions' option cannot be used with other options like '-kb', '-km', '-version'"
-            exit 1
-        fi
+    --versions)
+        # if [ -n "$version" ]; then
+        #     echo "[fwbuild_qmk] '--versions' option cannot be used with other options like '-version'"
+        #     exit 1
+        # fi
         list_tags="true"
         ;;
-        *)
+    *)
         # 入力が "gku34:tamago324" 形式の場合、それぞれの値を -kb と -km オプションに変換
         if [[ "$key" =~ ^([a-zA-Z0-9_/]+):([a-zA-Z0-9_]+)$ ]]; then
             keyboard="${BASH_REMATCH[1]}"
@@ -81,7 +74,7 @@ cd /workspace/__qmk__ || exit 1
 # バージョンが指定されていない場合、最新のタグにチェックアウト
 if [ -z "$version" ]; then
     echo "Version not specified. Checking out the latest tag..."
-    version=$(git describe --tags `git rev-list --tags --max-count=1`)
+    version=$(git describe --tags $(git rev-list --tags --max-count=1))
 fi
 
 echo "Checking out version: $version"
@@ -107,7 +100,7 @@ hex_filename="${keyboard_sanitized}_$keymap.hex"
 if [ -f "$uf2_filename" ]; then
     cp "$uf2_filename" /workspace/"$uf2_filename" || exit 1
     copy_success="true"
-elif [ -f "$hex_filename" ]; then 
+elif [ -f "$hex_filename" ]; then
     cp "$hex_filename" /workspace/"$hex_filename" || exit 1
     copy_success="true"
 else

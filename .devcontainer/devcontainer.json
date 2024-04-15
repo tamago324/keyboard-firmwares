@@ -15,8 +15,8 @@
             "extensions": [
                 "ms-azuretools.vscode-docker",
                 "github.vscode-github-actions",
-                "foxundermoon.shell-format",
-                "mads-hartmann.bash-ide-vscode"
+                // "foxundermoon.shell-format",
+                // "mads-hartmann.bash-ide-vscode"
             ]
         }
     }
