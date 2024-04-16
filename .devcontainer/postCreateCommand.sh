@@ -19,7 +19,7 @@ for dir in /workspace/keyboards/*/; do
     fi
 done
 
-# ビルドのスクリプトを実行できるようにする
+# fwbuild を実行できるようにする
 FWBUILD_SH="/workspace/.devcontainer/bin/fwbuild.sh"
 chmod +x $FWBUILD_SH
 if [ ! -e "/usr/local/bin/fwbuild" ]; then
