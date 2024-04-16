@@ -50,7 +50,7 @@ update)
     make git-submodule
     ;;
 qmk)
-    source "${SCRIPT_DIR}/fwbuild_qmk.sh" "$@"
+    python3 "${SCRIPT_DIR}/fwbuild_qmk.py" "$@"
     ;;
 vial)
     source "${SCRIPT_DIR}/fwbuild_vial.sh" "$@"
