@@ -34,5 +34,6 @@ echo '. /workspace/.devcontainer/bin/_fwbuild_completions' >>$HOME/.bashrc
 # 追加しておく
 git config --global --add safe.directory /workspace
 
+# qmk の設定
 mkdir -p /root/.config/qmk
 echo -e "[user]\nqmk_home = /workspace/__qmk__" > /root/.config/qmk/qmk.ini
