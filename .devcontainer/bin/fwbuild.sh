@@ -39,9 +39,13 @@ setup)
     
 update)
     # __qmk__ サブモジュールの更新
+    cd /workspace
+    git submodule update --remote __qmk__
     qmk git-submodule
 
     # __vial__ サブモジュールの更新
+    cd /workspace
+    git submodule update --remote __qmk__
     cd /workspace/__vial__
     make git-submodule
     ;;
