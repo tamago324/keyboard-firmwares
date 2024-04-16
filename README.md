@@ -1,12 +1,6 @@
 
 # devcontainer を使用してコンパイルできる環境
 
-## setup
-
-```sh
-$ fwbuild setup
-```
-
 ## コンパイル
 
 ```sh
@@ -22,10 +16,8 @@ $ fwbuild vial <keyboard>
 fwbuild <command> [options]
 
 Commands:
-  setup   Setup the environment
   qmk     Build QMK firmware with specified options
   vial    Build Vial firmware with specified options
-  upadte  Update QMK and Vial repository
 
 Options:
   fwbuild <command> --help
@@ -54,6 +46,7 @@ fwbuild vial <options>
 
 Commands:
   fwbuild vial <keyboard>
+
 Options:
   --help  Show this help message and exit
 ```

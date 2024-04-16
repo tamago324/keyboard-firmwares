@@ -8,10 +8,8 @@ usage() {
     echo "fwbuild <command> [options]"
     echo ""
     echo "Commands:"
-    echo "  setup   Setup the environment"
     echo "  qmk     Build QMK firmware with specified options"
     echo "  vial    Build Vial firmware with specified options"
-    echo "  upadte  Update QMK and Vial repository"
     echo ""
     echo "Options:"
     echo "  fwbuild <command> --help"
@@ -27,29 +25,6 @@ fi
 command="$1"
 shift
 case "$command" in
-setup)
-    # __qmk__ サブモジュールの初期化
-    cd /workspace
-    qmk setup --home __qmk__ --yes
-    qmk git-submodule
-    
-    # __vial__ サブモジュールの初期化
-    cd /workspace/__vial__
-    make git-submodule
-    ;;
-    
-update)
-    # __qmk__ サブモジュールの更新
-    cd /workspace
-    git submodule update --remote __qmk__
-    qmk git-submodule
-
-    # __vial__ サブモジュールの更新
-    cd /workspace
-    git submodule update --remote __qmk__
-    cd /workspace/__vial__
-    make git-submodule
-    ;;
 qmk)
     python3 "${SCRIPT_DIR}/fwbuild_qmk.py" "$@"
     ;;

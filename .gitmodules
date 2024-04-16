@@ -1,6 +1,0 @@
-[submodule "__qmk__"]
-	path = __qmk__
-	url = https://github.com/qmk/qmk_firmware
-[submodule "__vial__"]
-	path = __vial__
-	url = https://github.com/vial-kb/vial-qmk

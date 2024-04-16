@@ -26,7 +26,7 @@ _fwbuild_completions() {
 
     if [ $COMP_CWORD -eq 1 ]; then
         # 1つ目の候補を返す
-        COMPREPLY=($(compgen -W "qmk vial setup update" -- "$cur"))
+        COMPREPLY=($(compgen -W "qmk vial" -- "$cur"))
 
     # vial
     elif [ "${COMP_WORDS[1]}" = "vial" ]; then
