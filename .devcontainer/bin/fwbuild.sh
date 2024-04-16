@@ -53,7 +53,7 @@ qmk)
     python3 "${SCRIPT_DIR}/fwbuild_qmk.py" "$@"
     ;;
 vial)
-    source "${SCRIPT_DIR}/fwbuild_vial.sh" "$@"
+    python3 "${SCRIPT_DIR}/fwbuild_vial.py" "$@"
     ;;
 *)
     echo "Unknown command: $command"
