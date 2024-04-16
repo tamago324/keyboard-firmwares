@@ -22,11 +22,10 @@ def main():
     parser.add_argument('--help', action='store_true')
 
     args = parser.parse_args()
-
-    if args.help:
-        usage()
-
     keyboard = args.keyboard
+
+    if not keyboard  or args.help:
+        usage()
 
     if not keyboard or not re.match(r'^[a-zA-Z0-9_/]+$', keyboard):
         print("Unknown option: {}".format(keyboard))
