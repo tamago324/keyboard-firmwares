@@ -12,6 +12,7 @@ def usage():
     print("")
     print("Commands:")
     print("  fwbuild vial <keyboard>")
+    print("")
     print("Options:")
     print("  --help  Show this help message and exit")
     sys.exit(1)
