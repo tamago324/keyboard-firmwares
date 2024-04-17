@@ -14,6 +14,10 @@
 * 次回以降は Dev Container で開くことですぐに `fwbuild` コマンドでビルド可能
 * もし、環境を作り直したい場合、`__qmk__/` と `__vial__/` を削除し、`開発コンテナー: コンテナでリビルドして再度開く` コマンドを実行する
 
+## Create keyboard firmware
+
+* `keyboards/` ディレクトリ配下に QMK Firmware の keyboards と同じように作成する
+
 
 ## Quick Start
 
