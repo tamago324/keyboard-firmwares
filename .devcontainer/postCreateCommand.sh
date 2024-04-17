@@ -16,23 +16,6 @@ if [ ! -d "__vial__" ]; then
     make git-submodule
 fi
 
-# link keybaords files
-QMK_KEYBOARDS_DIR="/workspace/__qmk__/keyboards"
-VIAL_KEYBOARDS_DIR="/workspace/__vial__/keyboards"
-
-# keyboards/* ディレクトリのシンボリックリンクを作成する
-for dir in /workspace/keyboards/*/; do
-    link_name=$(basename "${dir%/}")
-
-    # 存在しない場合のみ、作成する
-    if [ ! -e "$QMK_KEYBOARDS_DIR/$link_name" ]; then
-        ln -s "$dir" "$QMK_KEYBOARDS_DIR/$link_name"
-    fi
-    if [ ! -e "$VIAL_KEYBOARDS_DIR/$link_name" ]; then
-        ln -s "$dir" "$VIAL_KEYBOARDS_DIR/$link_name"
-    fi
-done
-
 # ビルドのスクリプトを実行できるようにする
 FWBUILD_SH="/workspace/.devcontainer/bin/fwbuild.sh"
 chmod +x $FWBUILD_SH
