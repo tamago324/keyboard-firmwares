@@ -2,7 +2,7 @@ name: Checkout QMK firmware
 
 inputs:
   version:
-    default: '0.21.5'
+    default: '0.24.7'
     type: string
     required: false
   path:
