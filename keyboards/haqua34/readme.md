@@ -7,7 +7,7 @@ DevContainer の環境で作成する
 
 ```sh
 # QMK
-$ build qmk haqua34:tamago324 -version 0.22.5
+$ build qmk haqua34:tamago324
 
 # vial
 $ build vial haqua34
