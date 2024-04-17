@@ -112,6 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, KC_F2, KC_PERC, KC_F4, XXXXXXX,     XXXXXXX, XXXXXXX, JP_DQUO, JP_DQUO, XXXXXXX,
       KC_LCTL, JP_TILD, JP_PIPE, JP_BSLS, XXXXXXX,    C(KC_PGUP), C(KC_DOWN), C(KC_UP), C(KC_PGDN), XXXXXXX,
       XXXXXXX, C(KC_SPACE), JP_GRV, JP_GRV,  XXXXXXX,     KC_F7, JP_PLUS,  KC_F10, XXXXXXX, XXXXXXX,
+                                  _______, _______,             _______, _______
   ),
   [_SPECIAL] = LAYOUT(
     XXXXXXX, KC_F4, KC_F5, KC_F6, XXXXXXX,             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,
