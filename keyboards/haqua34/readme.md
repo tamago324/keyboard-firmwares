@@ -7,10 +7,10 @@ DevContainer の環境で作成する
 
 ```sh
 # QMK
-$ build qmk haqua34:tamago324
+$ fwbuild qmk haqua34:tamago324
 
 # vial
-$ build vial haqua34
+$ fwbuild vial haqua34
 ```
 
 ## ファームウェアの書き込み

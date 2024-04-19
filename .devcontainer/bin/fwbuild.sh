@@ -8,11 +8,11 @@ usage() {
     echo "fwbuild <command> [options]"
     echo ""
     echo "Commands:"
-    echo "  qmk     Build QMK firmware with specified options"
-    echo "  vial    Build Vial firmware with specified options"
+    echo "  fwbuild qmk     Build QMK firmware with specified options"
+    echo "  fwbuild vial    Build Vial firmware with specified options"
     echo ""
     echo "Options:"
-    echo "  fwbuild <command> --help"
+    echo "  fwbuild <command> --help    Show <command> help message"
     exit 1
 }
 

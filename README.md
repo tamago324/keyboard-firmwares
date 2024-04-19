@@ -1,32 +1,36 @@
 # Build QMK Firmware / Vial using Dev Container
 
-## Setup
-
-* clone する
-  ```sh
-  $ git clone https://github.com/tamago324/keyboard-firmwares
-  ```
-* VSCode で開く
-  * `Dev Containers` 拡張機能を入れておく
-* Dev Container で開く (`コンテナで再度開く`のメッセージが表示されたら、クリックして開ける)
-  * 初回のセットアップが行われる (`__qmk__`, `__vial__` が作成される)
-    * 完了したら、利用可能
-* 次回以降は Dev Container で開くことですぐに `fwbuild` コマンドでビルド可能
-* もし、環境を作り直したい場合、`__qmk__/` と `__vial__/` を削除し、`開発コンテナー: コンテナでリビルドして再度開く` コマンドを実行する
-
-## Create keyboard firmware
-
-* `keyboards/` ディレクトリ配下に QMK Firmware の keyboards と同じように作成する
-
-
 ## Quick Start
 
-Compile
+このリポジトリを clone する
+
+```sh
+$ git clone https://github.com/tamago324/keyboard-firmwares
+```
+
+clone したら、VSCode で開き、 (`Dev Containers` 拡張機能を入れておく)  
+Dev Container で開く (`コンテナで再度開く`のメッセージが表示されたら、クリックして開ける)  
+
+初回のセットアップが行われ、`__qmk__` と `__vial__` が作成されたらセットアップ完了
+
+
+ビルドするには
 
 ```sh
 $ fwbuild qmk <keyboard>:<keymap> [-v <version>]
 $ fwbuild vial <keyboard>
 ```
+
+のように実行する
+
+
+次回以降は Dev Container で開くことですぐに `fwbuild` コマンドでビルド可能  
+また、環境を作り直したい場合、`__qmk__/` と `__vial__/` を削除し、`開発コンテナー: コンテナでリビルドして再度開く` コマンドを実行する
+
+## Create keyboard firmware
+
+`keyboards/` ディレクトリ配下に QMK Firmware の keyboards と同じように作成する  
+
 
 ## Usage
 
@@ -36,11 +40,11 @@ $ fwbuild vial <keyboard>
 fwbuild <command> [options]
 
 Commands:
-  qmk     Build QMK firmware with specified options
-  vial    Build Vial firmware with specified options
+  fwbuild qmk     Build QMK firmware with specified options
+  fwbuild vial    Build Vial firmware with specified options
 
 Options:
-  fwbuild <command> --help
+  fwbuild <command> --help  Show <command> help message
 ```
 
 ### fwbuild qmk
