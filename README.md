@@ -74,3 +74,9 @@ Commands:
 Options:
   --help  Show this help message and exit
 ```
+
+
+## Special Thanks
+
+* [GPK FWMaker](https://github.com/darakuneko/gpk_fwmaker)
+* [Keyball GitHub Actions](https://github.com/Yowkees/keyball/pull/547/files#diff-002f0cf6de5b59906143def2851a94115b1ce39b58995b2ce87ec84efc63d3c2)
