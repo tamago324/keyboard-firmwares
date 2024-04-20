@@ -6,3 +6,6 @@ services:
     image: ghcr.io/qmk/qmk_cli:latest
     volumes:
       - ..:/workspace:cached
+      - fwbuild-bashhistory:/commandhistory
+volumes:
+  fwbuild-bashhistory:

@@ -33,3 +33,7 @@ echo '. /workspace/.devcontainer/bin/_fwbuild_completions' >>$HOME/.bashrc
 
 # 追加しておく
 git config --global --add safe.directory /workspace
+
+# bashのコマンド履歴を保存するための設定
+SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" 
+echo "$SNIPPET" >> "$HOME/.bashrc"
