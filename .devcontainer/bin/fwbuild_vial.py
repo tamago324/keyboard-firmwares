@@ -29,7 +29,8 @@ def usage():
     print("  fwbuild vial <keyboard>")
     print("")
     print("Options:")
-    print("  --help  Show this help message and exit")
+    print("  --generate-uid  Generate keyboard UID")
+    print("  --help          Show this help message and exit")
     sys.exit(1)
 
 
@@ -66,13 +67,22 @@ def exec_make_clean():
     subprocess.run(["make", "distclean"], stdout=subprocess.DEVNULL)
 
 
+def generate_uid():
+    subprocess.run(["python3", f"{VIAL_DIR}/util/vial_generate_keyboard_uid.py"])
+
+
 def main():
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("keyboard", nargs="?", default=None)
     parser.add_argument("--help", action="store_true")
+    parser.add_argument("--generate-uid", action="store_true")
 
     args = parser.parse_args()
     keyboard = args.keyboard
+
+    if args.generate_uid:
+        generate_uid()
+        sys.exit(0)
 
     if not keyboard or args.help:
         usage()

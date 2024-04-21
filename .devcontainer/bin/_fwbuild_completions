@@ -30,7 +30,14 @@ _fwbuild_completions() {
 
     # vial
     elif [ "${COMP_WORDS[1]}" = "vial" ]; then
-        COMPREPLY=($(compgen -W "$(list_keyboards_with_keymaps)" -- "$cur"))
+        # COMPREPLY=($(compgen -W "$(list_keyboards_with_keymaps)" -- "$cur"))
+        # -が入力されていたら、補完する
+        if [[ "$cur" == -* ]]; then
+            COMPREPLY=($(compgen -W "--generate-uid --help" -- "$cur"))
+        else
+            COMPREPLY=($(compgen -W "$(list_keyboards_with_keymaps)" -- "$cur"))
+        fi
+
 
     # qmk
     elif [ "${COMP_WORDS[1]}" = "qmk" ]; then

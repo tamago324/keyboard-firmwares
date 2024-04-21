@@ -72,6 +72,7 @@ Commands:
   fwbuild vial <keyboard>
 
 Options:
+  --generate-uid  Show this help message and exit
   --help  Show this help message and exit
 ```
 
