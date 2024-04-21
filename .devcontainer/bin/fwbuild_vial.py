@@ -16,9 +16,9 @@ DEST_DIR = f"{VIAL_DIR}/keyboards/{TEMP_KEYBOARD_DIR}/"
 
 def echo(text: str):
     print("")
-    print(f"**{len(text)}**")
+    print(f"**{'*' * len(text)}**")
     print(f"* {text} *")
-    print(f"**{len(text)}**")
+    print(f"**{'*' * len(text)}**")
     print("")
 
 
