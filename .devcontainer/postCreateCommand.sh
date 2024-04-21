@@ -23,17 +23,7 @@ if [ ! -e "/usr/local/bin/fwbuild" ]; then
     ln -s $FWBUILD_SH /usr/local/bin/fwbuild
 fi
 
-# プロンプトを見やすくする
-echo 'parse_git_branch() {
-     git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ (\1)/"
-}
-PS1="\[\e[34m\]\w\[\e[m\]\[\e[32m\]\$(parse_git_branch) \[\e[m\]\$ "' >>$HOME/.bashrc
-
-echo '. /workspace/.devcontainer/bin/_fwbuild_completions' >>$HOME/.bashrc
-
-# 追加しておく
-git config --global --add safe.directory /workspace
-
-# bashのコマンド履歴を保存するための設定
-SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" 
-echo "$SNIPPET" >> "$HOME/.bashrc"
+# Load .devcontainer/_bashrc
+if [ -f "/workspace/.devcontainer/_bashrc" ]; then
+    echo 'source "/workspace/.devcontainer/_bashrc"' >> $HOME/.bashrc
+fi

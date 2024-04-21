@@ -1,0 +1,12 @@
+
+# プロンプトを見やすくする
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ (\1)/"
+}
+PS1="\[\e[34m\]\w\[\e[m\]\[\e[32m\]\$(parse_git_branch) \[\e[m\]\$ "
+
+# 補完できるようにする
+. /workspace/.devcontainer/bin/_fwbuild_completions
+
+# bashのコマンド履歴を保存するための設定
+export PROMPT_COMMAND="history -a" && export HISTFILE=/commandhistory/.bash_history
