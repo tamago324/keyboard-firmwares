@@ -1,0 +1,122 @@
+{
+    "manufacturer": "cerbekos",
+    "keyboard_name": "Ambitent",
+    "maintainer": "cerbekos",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true,
+        "encoder": true
+    },
+    "matrix_pins": {
+        "cols": ["GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP28", "GP27", "GP26", "GP15", "GP14", "GP13","GP12"],
+        "rows": ["GP0", "GP1", "GP2", "GP3"]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x1055",
+        "vid": "0x7110"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix":[0,0], "x":-3.25, "y":-18.25}, 
+                {"matrix":[0,1], "x":-2.25, "y":-18.75}, 
+                {"matrix":[0,2], "x":-1.25, "y":-19.125}, 
+                {"matrix":[0,3], "x":-0.25, "y":-19.0}, 
+                {"matrix":[0,4], "x":0.75, "y":-18.75}, 
+                {"matrix":[0,10], "x":-1.25, "y":-24.05}, 
+                {"matrix":[0,11], "x":-0.25, "y":-24.05}, 
+                {"matrix":[0,12], "x":0.75, "y":-24.05},
+                {"matrix":[0,5], "x":-1.5, "y":-27.85}, 
+                {"matrix":[0,6], "x":-0.5, "y":-28.1}, 
+                {"matrix":[0,7], "x":0.5, "y":-28.225}, 
+                {"matrix":[0,8], "x":1.5, "y":-27.85}, 
+                {"matrix":[0,9], "x":2.5, "y":-27.35}, 
+                {"matrix":[1,0], "x":-4.75, "y":-16}, 
+                {"matrix":[1,1], "x":-3.0, "y":-14.25}, 
+                {"matrix":[1,2], "x":-1.25, "y":-18.125}, 
+                {"matrix":[1,3], "x":-0.25, "y":-18}, 
+                {"matrix":[1,4], "x":0.5, "y":-19.75}, 
+                {"matrix":[1,10], "x":-1.25, "y":-23.05}, 
+                {"matrix":[1,11], "x":-0.25, "y":-23.05}, 
+                {"matrix":[1,12], "x":0.75, "y":-23.05}, 
+                {"matrix":[2,10], "x":1.75, "y":-23.05}, 
+                {"matrix":[1,5], "x":-1.25, "y":-22.6}, 
+                {"matrix":[1,6], "x":-0.5, "y":-27.1}, 
+                {"matrix":[1,7], "x":0.5, "y":-27.225}, 
+                {"matrix":[1,8], "x":2.5, "y":-27.6}, 
+                {"matrix":[1,9], "x":4.25, "y":-26.35}, 
+                {"matrix":[2,0], "x":-12.25, "y":-11.5}, 
+                {"matrix":[2,1], "x":-8.5, "y":-7.0}, 
+                {"matrix":[2,2], "x":-1.25, "y":-17.125}, 
+                {"matrix":[2,3], "x":-0.25, "y":-17.0}, 
+                {"matrix":[2,4], "x":0.25, "y":-20}, 
+                {"matrix":[2,11], "x":-1.25, "y":-22.05}, 
+                {"matrix":[2,12], "x":-0.25, "y":-22.05}, 
+                {"matrix":[3,9], "x":0.75, "y":-22.05}, 
+                {"matrix":[3,10], "x":1.75, "y":-22.05}, 
+                {"matrix":[2,5], "x":-1.0, "y":-22.1}, 
+                {"matrix":[2,6], "x":-0.5, "y":-26.1}, 
+                {"matrix":[2,7], "x":0.5, "y":-26.225}, 
+                {"matrix":[2,8], "x":8.75, "y":-28.85},
+                {"matrix":[2,9], "x":12.5, "y":-27.6}, 
+                {"matrix":[3,0], "x":-3.0, "y":-18.5, "w":1.25}, 
+                {"matrix":[3,1], "x":-1.35, "y":-20.85, "w":1.25}, 
+                {"matrix":[3,2], "x":0.15, "y":-21.8, "w":1.25}, 
+                {"matrix":[3,11], "x":-0.25, "y":-21.05}, 
+                {"matrix":[3,12], "x":0.75, "y":-21.05},
+                {"matrix":[3,3], "x":2, "y":-20.8},
+                {"matrix":[3,4], "x":-1.0, "y":-21.75, "w":1.25}, 
+                {"matrix":[3,5], "x":0.2, "y":-22.35, "w":1.25}, 
+                {"matrix":[3,6], "x":2.75, "y":-26.1, "w":1.25}
+            ]
+        }
+    },
+    "rgblight": {
+        "led_count": 18,
+        "pin": "GP29",
+        "animations":{
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        },
+        "sleep": true,
+        "max_brightness": 128,
+        "hue_steps": 8,
+        "saturation_steps": 8
+    },
+    "WS2812": {
+        "driver":"vendor",
+        "pin":"GP29"
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "GP11", "pin_b": "GP10" }
+        ]
+    },
+    "build": {
+        "debounce_type":"sym_eager_pk"
+    },
+    "caps_word":{
+        "enabled":true,
+        "both_shifts_turns_on":true,
+        "double_tap_shift_turns_on":true,
+        "idle_timeout":10000
+    }
+    
+}
