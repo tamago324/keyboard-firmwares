@@ -1,0 +1,26 @@
+{
+    "keyboard_name": "trackmacro",
+    "manufacturer": "tamago324",
+    "maintainer": "tamago324",
+    "usb": {
+        "vid": "0x1926",
+        "pid": "0x041E",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["GP5", "GP6", "GP7"],
+        "rows": ["GP8"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
+            ]
+        }
+    }
+}
