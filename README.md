@@ -31,6 +31,8 @@ $ fwbuild vial <keyboard>
 
 `keyboards/` ディレクトリ配下に QMK Firmware の keyboards と同じように作成する  
 
+`fwbuild qmk generate-compilation-database <kb>:<km>` で VSCode で開発しやすいようにする
+
 
 ## Usage
 
@@ -53,7 +55,8 @@ Options:
 fwbuild qmk <options>
 
 Commands:
-  fwbuild qmk <keyboard>:<keymap> [-v <version>]
+  fwbuild qmk compile <keyboard>:<keymap> [-v <version>]
+  fwbuild qmk generate-compilation-database <keyboard>:<keymap> [-v <version>]
   fwbuild qmk --versions
   fwbuild qmk --help
 

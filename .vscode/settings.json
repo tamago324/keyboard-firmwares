@@ -11,5 +11,7 @@
     "git.ignoredRepositories": [
         "__qmk__",
         "__vial__",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}"
     ]
 }

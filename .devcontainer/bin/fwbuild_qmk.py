@@ -23,11 +23,14 @@ def usage():
     print("fwbuild qmk <options>")
     print("")
     print("Commands:")
-    print("  fwbuild qmk <keyboard>:<keymap> [-v <version>]")
+    print("  fwbuild qmk compile <keyboard>:<keymap> [-v <version>]")
+    print("  fwbuild qmk generate-compilation-database <keyboard>:<keymap> [-v <version>]")
     print("  fwbuild qmk --versions")
     print("  fwbuild qmk --help")
     print("")
     print("Options:")
+    print("  compile        Compile")
+    print("  generate-compilation-database   Create a compilation database")
     print(
         "  -v <version>   Specify the QMK firmware version. If not specified, the latest tag will be used."
     )
@@ -59,8 +62,7 @@ def list_versions():
     print(output)
     sys.exit(0)
 
-
-def build_qmk(keyboard, keymap, version):
+def _setup_qmk(version):
     os.chdir(QMK_DIR)
 
     if not version:
@@ -78,27 +80,30 @@ def build_qmk(keyboard, keymap, version):
     subprocess.run(["git", "checkout", "tags/" + version])
     subprocess.run(["qmk", "git-submodule"])
 
-    if (
-        subprocess.run(
-            [
-                "qmk",
-                "compile",
-                "-j",
-                "4",
-                "-kb",
-                f"{TEMP_KEYBOARD_DIR}/{keyboard}",
-                "-km",
-                keymap,
-            ]
-        ).returncode
-        != 0
-    ):
+
+def _run(commands: list[str]):
+    if (subprocess.run(commands).returncode != 0):
         print()
         print("****************")
         print("* Build failed *")
         print("****************")
         print()
         sys.exit(1)
+
+def build_qmk(keyboard, keymap, version):
+    _setup_qmk(version)
+    _run(
+        [
+            "qmk",
+            "compile",
+            "-j",
+            "4",
+            "-kb",
+            f"{TEMP_KEYBOARD_DIR}/{keyboard}",
+            "-km",
+            keymap,
+        ]
+    )
 
     keyboard_sanitized = keyboard.replace("/", "_")
     uf2_filename = f"{TEMP_KEYBOARD_DIR}_{keyboard_sanitized}_{keymap}.uf2"
@@ -123,6 +128,37 @@ def build_qmk(keyboard, keymap, version):
     print()
 
 
+def generate_compilation_database(keyboard, keymap, version):
+    _setup_qmk(version)
+
+    _run(
+        [
+            "qmk",
+            "generate-compilation-database",
+            "-kb",
+            f"{TEMP_KEYBOARD_DIR}/{keyboard}",
+            "-km",
+            keymap,
+        ]
+    )
+
+    path = f"{QMK_DIR}/compile_commands.json"
+    if os.path.isfile(path):
+        shutil.copy(path, f"/workspace/compile_commands.json")
+    else:
+        print()
+        print("*************************************")
+        print("* Failed to find the generated file *")
+        print("*************************************")
+        print()
+        sys.exit(1)
+
+    print()
+    print("********************")
+    print("* Build successful *")
+    print("********************")
+    print()
+
 def copy_keyboards():
     if not os.path.exists(DEST_DIR):
         os.makedirs(DEST_DIR)
@@ -141,6 +177,7 @@ def exec_make_clean():
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("command", choices=["compile", "generate-compilation-database"], help="Command to run")
     parser.add_argument("-v", "--version", default="")
     parser.add_argument("--versions", action="store_true")
     parser.add_argument("keyboard_keymap", nargs="?")
@@ -149,21 +186,27 @@ def main():
     if args.versions:
         list_versions()
 
-    if args.keyboard_keymap:
-        match = re.match(r"^([a-zA-Z0-9_/]+):([a-zA-Z0-9_]+)$", args.keyboard_keymap)
-        if match:
-            keyboard, keymap = match.groups()
-            try:
-                copy_keyboards()
-                build_qmk(keyboard, keymap, args.version)
-                exec_make_clean()
-            finally:
-                clean_keyboards()
-        else:
-            print("Unknown option: " + args.keyboard_keymap)
-            usage()
-    else:
+    if args.command not in {"compile", "generate-compilation-database"} :
         usage()
+
+    if not args.keyboard_keymap:
+        usage()
+
+    match = re.match(r"^([a-zA-Z0-9_/]+):([a-zA-Z0-9_]+)$", args.keyboard_keymap)
+    if not match:
+        print("Unknown option: " + args.keyboard_keymap)
+        usage()
+
+    keyboard, keymap = match.groups()
+    try:
+        copy_keyboards()
+        if args.command == "compile":
+            build_qmk(keyboard, keymap, args.version)
+        elif args.command == "generate-compilation-database":
+            generate_compilation_database(keyboard, keymap, args.version)
+        exec_make_clean()
+    finally:
+        clean_keyboards()
 
 
 if __name__ == "__main__":

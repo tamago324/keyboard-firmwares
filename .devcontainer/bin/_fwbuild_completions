@@ -42,7 +42,7 @@ _fwbuild_completions() {
     # qmk
     elif [ "${COMP_WORDS[1]}" = "qmk" ]; then
 
-        local opts="-v --versions --help"
+        local opts="compile generate-compilation-database -v --versions --help"
 
         # もし '-v' オプションが既に入力されている場合、補完候補から '-v' を除外する
         if [[ " ${COMP_WORDS[@]} " =~ " -v " ]]; then
