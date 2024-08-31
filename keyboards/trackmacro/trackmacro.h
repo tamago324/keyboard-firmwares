@@ -17,3 +17,22 @@
 #pragma once
 
 #include "quantum.h"
+
+typedef union {
+    uint64_t raw;
+    struct {
+        // uint8_t angle_idx;
+        uint8_t cpi_idx;
+    };
+} user_config_t;
+
+extern user_config_t user_config;
+
+enum custom_keycodes {
+    DRAG_SCROLL = SAFE_RANGE,
+    CPI_UP,
+    MY_SAFE_RANGE,
+};
+
+bool get_scroll_mode(void);
+void set_scroll_mode(bool mode);

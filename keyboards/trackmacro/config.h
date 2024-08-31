@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCE 50
 
 // SPI の設定
-#define SPI_DRIVER SPID1    // SPID0 or SPID1
-#define SPI_SCK_PIN GP14     // SCK (SCLK)
-#define SPI_MOSI_PIN GP15    // MOSI (TX)
-#define SPI_MISO_PIN GP12    // MISO (RX)
+#define SPI_DRIVER SPID1            // SPID0 or SPID1
+#define SPI_SCK_PIN GP14            // SCK (SCLK)
+#define SPI_MOSI_PIN GP15           // MOSI (TX)
+#define SPI_MISO_PIN GP12           // MISO (RX)
 #define POINTING_DEVICE_CS_PIN GP13 // NCS (Chip Select)
 
 // // MOTION_PIN の設定
@@ -32,5 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // X軸を反転する
 #define POINTING_DEVICE_INVERT_X
-// -32767~32767 の範囲にする (デフォルトは -127~127)
-#define MOUSE_EXTENDED_REPOROT
+// // -32767~32767 の範囲にする (デフォルトは -127~127)
+// #define MOUSE_EXTENDED_REPOROT
+
+#define PMW33XX_LIFTOFF_DISTANCE 0x00
