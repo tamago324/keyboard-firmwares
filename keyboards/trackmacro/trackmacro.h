@@ -29,10 +29,10 @@ typedef union {
 extern user_config_t user_config;
 
 enum custom_keycodes {
-    DRAG_SCROLL = SAFE_RANGE,
+    // 垂直 (縦) スクロール
+    DRAG_SCROLL_VERTICAL = SAFE_RANGE,
+    // 水平 (横) スクロール
+    DRAG_SCROLL_HORIZONTAL,
     CPI_UP,
     MY_SAFE_RANGE,
 };
-
-bool get_scroll_mode(void);
-void set_scroll_mode(bool mode);

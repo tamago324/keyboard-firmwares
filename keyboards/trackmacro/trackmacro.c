@@ -56,15 +56,13 @@ void pointing_device_init_kb(void) {
 }
 
 /* スクロール */
-bool scroll_mode = false;
+enum ScrollMode { HORIZONTAL, VERTICAL };
+struct ScrollState {
+    bool            enabled;
+    enum ScrollMode mode;
+};
 
-bool get_scroll_mode(void) {
-    return scroll_mode;
-}
-
-void set_scroll_mode(bool mode) {
-    scroll_mode = mode;
-}
+struct ScrollState scroll_state;
 
 // スクロール速度を調整
 #define SCROLL_DIVISOR_H 12.0;
@@ -75,19 +73,26 @@ float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    // 垂直スクロール
-    if (scroll_mode) {
-        // マウスの動きと除数に基づいてスクロールを計算する
-        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+    // スクロール
+    if (scroll_state.enabled) {
+        switch (scroll_state.mode) {
+            case HORIZONTAL:
+                scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+                mouse_report.h = -((int8_t)scroll_accumulated_h);
+                scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+                mouse_report.v = 0;
+                break;
 
-        // 累積スクロール値の整数部分をマウスレポートに設定
-        mouse_report.h = (int8_t)scroll_accumulated_h;
-        mouse_report.v = (int8_t)scroll_accumulated_v;
+            case VERTICAL:
+                scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+                mouse_report.v = (int8_t)scroll_accumulated_v;
+                scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+                mouse_report.h = 0;
+                break;
 
-        // 整数部分を減産して累積スクロール値を更新
-        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
-        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+            default:
+                break;
+        }
 
         // カーソルが動かないようにする
         mouse_report.x = 0;
@@ -103,8 +108,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     switch (keycode) {
-        case DRAG_SCROLL:
-            set_scroll_mode(record->event.pressed);
+        case DRAG_SCROLL_HORIZONTAL:
+            scroll_state.enabled = record->event.pressed;
+            scroll_state.mode    = HORIZONTAL;
+            break;
+        case DRAG_SCROLL_VERTICAL:
+            scroll_state.enabled = record->event.pressed;
+            scroll_state.mode    = VERTICAL;
             break;
         default:
             break;
