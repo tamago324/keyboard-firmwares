@@ -11,6 +11,18 @@
     "git.ignoredRepositories": [
         "__qmk__",
         "__vial__",
+    ],
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.inc": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp",
+        "xstddef": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "ranges": "c"
+    },
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}"
     ]
