@@ -32,7 +32,7 @@ int8_t angles[] = {-45, -30, -15, 0, 15, 30, 45};
 #define ANGLE_SIZE (sizeof(angles) / sizeof(int8_t))
 #define ANGLE_DEFAULT 3
 
-void up_angle(int8_t data) {
+void set_angle(int8_t data) {
     pmw33xx_write(0, REG_Angle_Tune, CONSTRAIN(data, -127, 127));
 }
 
@@ -59,6 +59,8 @@ void matrix_init_kb(void) {
 
 void pointing_device_init_kb(void) {
     pointing_device_set_cpi(cpi_options[user_config.cpi_idx]);
+    set_angle(angles[user_config.angle_idx]);
+
     user_config.raw = eeconfig_read_kb();
     eeconfig_update_kb(user_config.raw);
 }
@@ -138,7 +140,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 user_config.angle_idx = (user_config.angle_idx + 1) % ANGLE_SIZE;
                 eeconfig_update_kb(user_config.raw);
-                up_angle(angles[user_config.angle_idx]);
+                set_angle(angles[user_config.angle_idx]);
             }
             break;
 
