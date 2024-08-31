@@ -1,3 +1,6 @@
 __vial__/
 __qmk__/
 *.uf2
+.history
+.cache
+compile_commands.json
