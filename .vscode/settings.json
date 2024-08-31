@@ -23,6 +23,8 @@
         "utility": "c",
         "ranges": "c"
     },
+"[c]": {"editor.formatOnSave": true},
+    "[json]": {"editor.formatOnSave": true},
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}"
     ]
