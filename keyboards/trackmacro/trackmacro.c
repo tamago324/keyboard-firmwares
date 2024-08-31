@@ -15,23 +15,31 @@
  */
 
 #include "trackmacro.h"
+
 #include "pointing_device.h"
+#include "sensors/pmw3360.h"
+#include "sensors/pmw33xx_common.h"
 
 user_config_t user_config;
-
-// uint16_t angles[] = {-40, -30, -20, -10, 0, 10, 20, 30, 40};
-// #define ANGLE_SIZE (sizeof(angles) / sizeof(uint16_t))
-// #define ANGLE_DEFAULT 4
 
 // GameBall は 400/800/1200/2000/3000
 uint16_t cpi_options[] = {100, 200, 300, 400};
 #define CPI_OPTIONS_SIZE (sizeof(cpi_options) / sizeof(uint16_t))
 #define CPI_DEFAULT 1
 
+// 角度調整
+int8_t angles[] = {-45, -30, -15, 0, 15, 30, 45};
+#define ANGLE_SIZE (sizeof(angles) / sizeof(int8_t))
+#define ANGLE_DEFAULT 3
+
+void up_angle(int8_t data) {
+    pmw33xx_write(0, REG_Angle_Tune, CONSTRAIN(data, -127, 127));
+}
+
 // EEPROM がリセットされたら、デフォルト値を書き込む
 void eeconfig_init_kb(void) {
-    // user_config.angle_idx = ANGLE_DEFAULT;
-    user_config.cpi_idx = CPI_DEFAULT;
+    user_config.angle_idx = ANGLE_DEFAULT;
+    user_config.cpi_idx   = CPI_DEFAULT;
 
     eeconfig_update_kb(user_config.raw);
     eeconfig_init_user();
@@ -125,6 +133,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 pointing_device_set_cpi(cpi_options[user_config.cpi_idx]);
             }
             break;
+
+        case ANGLE_UP:
+            if (record->event.pressed) {
+                user_config.angle_idx = (user_config.angle_idx + 1) % ANGLE_SIZE;
+                eeconfig_update_kb(user_config.raw);
+                up_angle(angles[user_config.angle_idx]);
+            }
+            break;
+
         default:
             break;
     }
