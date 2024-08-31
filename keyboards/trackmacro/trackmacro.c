@@ -112,18 +112,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             scroll_state.enabled = record->event.pressed;
             scroll_state.mode    = HORIZONTAL;
             break;
+
         case DRAG_SCROLL_VERTICAL:
             scroll_state.enabled = record->event.pressed;
             scroll_state.mode    = VERTICAL;
             break;
+
+        case CPI_UP:
+            if (record->event.pressed) {
+                user_config.cpi_idx = (user_config.cpi_idx + 1) % CPI_OPTIONS_SIZE;
+                eeconfig_update_kb(user_config.raw);
+                pointing_device_set_cpi(cpi_options[user_config.cpi_idx]);
+            }
+            break;
         default:
             break;
-    }
-
-    if (keycode == CPI_UP && record->event.pressed) {
-        user_config.cpi_idx = (user_config.cpi_idx + 1) % CPI_OPTIONS_SIZE;
-        eeconfig_update_kb(user_config.raw);
-        pointing_device_set_cpi(cpi_options[user_config.cpi_idx]);
     }
 
     return true;
