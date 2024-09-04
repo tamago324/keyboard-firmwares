@@ -1,0 +1,116 @@
+// document: https://docs.qmk.fm/reference_info_json#info-json-reference
+// mapping: /workspace/__qmk__/data/mappings/info_config.hjson
+{
+    "keyboard_name": "evoroll",
+    "manufacturer": "tamago324",
+    "url": "https://github.com/tamago324/evoroll",
+    "maintainer": "tamago324",
+    "usb": {
+        "vid": "0x1926",
+        "pid": "0x041F",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["GP28", "GP27", "GP14", "GP15", "GP26" ],
+        "rows": ["GP29", "GP11", "GP10", "GP9"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "debounce": 50,
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["GP29", "GP28", "GP27", "GP26", "GP10" ],
+                "rows": ["GP7", "GP6", "GP5", "GP4"]
+            }
+        }
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk",
+        // サイズを小さくする (https://zenn.dev/koron/articles/98324ab760e83a)
+        "lto": true
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
+    },
+    "mouse_key": {
+        "enabled": true
+    },
+    "tapping": {
+        // SFT_T(KC_SPACE) としていたときに、 Space → Space長押し としたときに、 Spaceが連続で入力されてしまう問題の対処法
+        // https://docs.qmk.fm/#/ja/tap_hold?id=%e3%82%bf%e3%83%83%e3%83%94%e3%83%b3%e3%82%b0%e5%bc%b7%e5%88%b6%e3%83%9b%e3%83%bc%e3%83%ab%e3%83%89
+        // https://qiita.com/uodna/items/6d23581d26c1adb23377
+        "force_hold": true,
+        // キーごとに タップとホールドの時間を設定する
+        "term": 145,
+        // キーごとに TAPPING_TERM を設定できるようにする
+        "term_per_key": true
+    },
+    "combo": {
+        // コンボを認識するまでの時間 (default: 50ms)
+        "term": 100
+    },
+    "qmk": {
+        // サイズを小さくする (https://zenn.dev/koron/articles/98324ab760e83a)
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+
+                {"matrix": [4, 0], "x": 5, "y": 0},
+                {"matrix": [4, 1], "x": 6, "y": 0},
+                {"matrix": [4, 2], "x": 7, "y": 0},
+                {"matrix": [4, 3], "x": 8, "y": 0},
+                {"matrix": [4, 4], "x": 9, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+
+                {"matrix": [5, 0], "x": 5, "y": 1},
+                {"matrix": [5, 1], "x": 6, "y": 1},
+                {"matrix": [5, 2], "x": 7, "y": 1},
+                {"matrix": [5, 3], "x": 8, "y": 1},
+                {"matrix": [5, 4], "x": 9, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+
+                {"matrix": [6, 0], "x": 5, "y": 2},
+                {"matrix": [6, 1], "x": 6, "y": 2},
+                {"matrix": [6, 2], "x": 7, "y": 2},
+                {"matrix": [6, 3], "x": 8, "y": 2},
+                {"matrix": [6, 4], "x": 9, "y": 2},
+
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+
+                {"matrix": [7, 0], "x": 5, "y": 3},
+                {"matrix": [7, 1], "x": 6, "y": 3},
+                {"matrix": [7, 2], "x": 7, "y": 3},
+                {"matrix": [7, 3], "x": 8, "y": 3},
+                {"matrix": [7, 4], "x": 9, "y": 3}
+            ]
+        }
+    }
+}
