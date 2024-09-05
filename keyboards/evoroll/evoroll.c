@@ -96,7 +96,8 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
             case VERTICAL:
                 scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
-                mouse_report.v = (int8_t)scroll_accumulated_v;
+                // 上に転がすと上にスクロールするようにしている
+                mouse_report.v = -((int8_t)scroll_accumulated_v);
                 scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
                 mouse_report.h = 0;
                 break;
