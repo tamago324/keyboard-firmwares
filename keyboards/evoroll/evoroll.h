@@ -35,3 +35,5 @@ enum custom_keycodes {
     CPI_UP,
     MY_SAFE_RANGE,
 };
+
+void set_scroll_horizontal(bool on);

@@ -76,7 +76,7 @@ struct ScrollState {
 struct ScrollState scroll_state;
 
 // スクロール速度を調整
-#define SCROLL_DIVISOR_H 14.0;
+#define SCROLL_DIVISOR_H 16.0;
 #define SCROLL_DIVISOR_V 14.0;
 
 // 累積スクロール値
@@ -89,7 +89,8 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         switch (scroll_state.mode) {
             case HORIZONTAL:
                 scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-                mouse_report.h = -((int8_t)scroll_accumulated_h);
+                // 右に転がすと、右にスクロールする
+                mouse_report.h = ((int8_t)scroll_accumulated_h);
                 scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
                 mouse_report.v = 0;
                 break;
@@ -114,6 +115,11 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
+void set_scroll_horizontal(bool on) {
+    scroll_state.enabled = on;
+    scroll_state.mode    = HORIZONTAL;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -121,8 +127,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
     switch (keycode) {
         case DRAG_SCROLL_HORIZONTAL:
-            scroll_state.enabled = record->event.pressed;
-            scroll_state.mode    = HORIZONTAL;
+            set_scroll_horizontal(record->event.pressed);
             break;
 
         case DRAG_SCROLL_VERTICAL:

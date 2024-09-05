@@ -48,6 +48,7 @@ enum combo_events {
     CMB_MINUS_LEFT_ARROW,
     CMB_MINUS_MINUS,
     CMB_MINUS,
+    CMB_SCROLL_HORIZONTAL,
 };
 
 // =>
@@ -58,13 +59,18 @@ const uint16_t PROGMEM comb_keys_minus_left_arrow[] = {JP_MINS, JP_LPRN, COMBO_E
 const uint16_t PROGMEM comb_keys_minus_minus[] = {JP_MINS, JP_LBRC, COMBO_END};
 // -
 const uint16_t PROGMEM comb_keys_minus[] = {KC_K, KC_L, COMBO_END};
+// 横スクロール
+const uint16_t PROGMEM comb_keys_scroll_horizontal[] = {KC_B, KC_F, COMBO_END};
 
+// clang-format off
 combo_t key_combos[] = {
-    [CMB_EQ_LEFT_ARROW]    = COMBO_ACTION(comb_keys_eq_left_arrow),
-    [CMB_MINUS_LEFT_ARROW] = COMBO_ACTION(comb_keys_minus_left_arrow),
-    [CMB_MINUS_MINUS]      = COMBO_ACTION(comb_keys_minus_minus),
-    [CMB_MINUS]            = COMBO_ACTION(comb_keys_minus),
+    [CMB_EQ_LEFT_ARROW]     = COMBO_ACTION(comb_keys_eq_left_arrow),
+    [CMB_MINUS_LEFT_ARROW]  = COMBO_ACTION(comb_keys_minus_left_arrow),
+    [CMB_MINUS_MINUS]       = COMBO_ACTION(comb_keys_minus_minus),
+    [CMB_MINUS]             = COMBO_ACTION(comb_keys_minus),
+    [CMB_SCROLL_HORIZONTAL] = COMBO_ACTION(comb_keys_scroll_horizontal),
 };
+// clang-format on
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
     switch (combo_index) {
@@ -93,6 +99,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
                 tap_code16(JP_MINS);
             }
             break;
+        case CMB_SCROLL_HORIZONTAL:
+            set_scroll_horizontal(pressed);
+            break;
     }
 }
 
@@ -102,7 +111,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
          KC_TAB,  KC_W,    KC_E, KC_R,        KC_T,                 KC_Y, KC_U,  KC_I,    KC_O,    KC_BSPC,
-  LCTL_T(KC_A),   KC_S,    KC_D, KC_F,        KC_G,                 KC_H, KC_J,  KC_K,    KC_L,    KC_P,
+  LCTL_T(KC_A),   KC_S,    KC_D, KC_F,        KC_G,        KC_H, KC_J,  KC_K,    KC_L,    KC_P,
   LSFT_T(KC_Z),   KC_X,    KC_C, ALT_T(KC_V), KC_B,                 KC_N, KC_M,  KC_COMM, KC_DOT,  ALT_T(KC_Q),
                                   LOWER,  LCTL_T(KC_SPACE),         KC_BTN4, KC_BTN1, DRAG_SCROLL_VERTICAL, SFT_T(KC_ENT), RAISE
   ),
@@ -344,7 +353,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             break;
 
-        case ALT_TAB_BTN1_BTN2:
+        case ALT_TAB_BTN1_BTN2: // MY_SAFE_RANGE が正しく認識できていないため、エラーになるが、実際は問題ない
             // ALT+TAB の操作中は、BTN1でそれ以外はBTN2
             if (record->event.pressed) {
                 if (alt_tab_pressed || alt_shift_tab_pressed) {
