@@ -60,7 +60,7 @@ const uint16_t PROGMEM comb_keys_minus_minus[] = {JP_MINS, JP_LBRC, COMBO_END};
 // -
 const uint16_t PROGMEM comb_keys_minus[] = {KC_K, KC_L, COMBO_END};
 // 横スクロール
-const uint16_t PROGMEM comb_keys_scroll_horizontal[] = {KC_B, KC_F, COMBO_END};
+const uint16_t PROGMEM comb_keys_scroll_horizontal[] = {KC_S, KC_D, COMBO_END};
 
 // clang-format off
 combo_t key_combos[] = {
