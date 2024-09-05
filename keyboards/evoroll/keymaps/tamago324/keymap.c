@@ -40,6 +40,7 @@ enum custom_km_keycodes {
     JU_QUOT,
     ALT_TAB,
     ALT_S_TAB,
+    ALT_TAB_BTN1_BTN2, // ALT+TAB の操作中は、BTN1でそれ以外はBTN2
 };
 
 enum combo_events {
@@ -109,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, JP_AT,   KC_HASH, KC_DLR,  JP_CIRC,          JP_ASTR, JP_AMPR, JP_LPRN, JP_RPRN, XXXXXXX,
       KC_LCTL, KC_ESC, KC_BSPC, KC_ENT, KC_DELETE,        KC_SLSH, JP_MINS,  JP_LBRC, JP_RBRC, S(KC_SLSH),
       OSL(_WIN), KC_TAB, ALT_S_TAB, ALT_TAB,  KC_EXLM,   JP_UNDS, JP_EQL, JP_LCBR, JP_RCBR, XXXXXXX,
-                                 _______, _______,       KC_BTN5, KC_BTN2, KC_BTN3, SFT_T(LALT(KC_ENT)), _______
+                                 _______, _______,       KC_BTN5, ALT_TAB_BTN1_BTN2, KC_BTN3, SFT_T(LALT(KC_ENT)), _______
   ),
   [_RAISE] = LAYOUT(
       XXXXXXX, KC_4, KC_5, KC_6, XXXXXXX,                 XXXXXXX,  XXXXXXX, JU_QUOT, JU_QUOT, KC_DELETE,
@@ -340,6 +341,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 register_code16(S(KC_TAB));
             } else {
                 unregister_code16(S(KC_TAB));
+            }
+            break;
+
+        case ALT_TAB_BTN1_BTN2:
+            // ALT+TAB の操作中は、BTN1でそれ以外はBTN2
+            if (record->event.pressed) {
+                if (alt_tab_pressed || alt_shift_tab_pressed) {
+                    tap_code(KC_BTN1);
+                } else {
+                    register_code(KC_BTN2);
+                }
+            } else {
+                unregister_code(KC_BTN2);
             }
             break;
 
