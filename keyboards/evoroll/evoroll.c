@@ -76,8 +76,8 @@ struct ScrollState {
 struct ScrollState scroll_state;
 
 // スクロール速度を調整
-#define SCROLL_DIVISOR_H 12.0;
-#define SCROLL_DIVISOR_V 12.0;
+#define SCROLL_DIVISOR_H 14.0;
+#define SCROLL_DIVISOR_V 14.0;
 
 // 累積スクロール値
 float scroll_accumulated_h = 0;
