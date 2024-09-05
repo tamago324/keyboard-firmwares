@@ -29,6 +29,8 @@ typedef union {
 enum custom_keycodes {
     // 垂直 (縦) スクロール
     DRAG_SCROLL_VERTICAL = SAFE_RANGE,
+    // 縦スクロールのトグル
+    TG_SCRL_V,
     // 水平 (横) スクロール
     DRAG_SCROLL_HORIZONTAL,
     // ANGLE_UP,

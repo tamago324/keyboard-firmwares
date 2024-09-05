@@ -120,6 +120,11 @@ void set_scroll_horizontal(bool on) {
     scroll_state.mode    = HORIZONTAL;
 }
 
+void toggle_scroll_vertical(void) {
+    scroll_state.enabled = !scroll_state.enabled;
+    scroll_state.mode    = VERTICAL;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -133,6 +138,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         case DRAG_SCROLL_VERTICAL:
             scroll_state.enabled = record->event.pressed;
             scroll_state.mode    = VERTICAL;
+            break;
+
+        case TG_SCRL_V:
+            if (record->event.pressed) {
+                toggle_scroll_vertical();
+            }
             break;
 
         case CPI_UP:
