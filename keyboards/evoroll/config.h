@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MISO_PIN GP8           // MISO (RX)
 #define POINTING_DEVICE_CS_PIN GP9 // NCS (Chip Select)
 
-// // MOTION_PIN の設定
+// // MOTION_PIN の設定 (スレーブ側にトラックボールがあるときには意味がないため、設定していない)
 // #define POINTING_DEVICE_MOTION_PIN GP11
 // #define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 
@@ -42,6 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSE_EXTENDED_REPOROT
 
 #define PMW33XX_LIFTOFF_DISTANCE 0x00
-#define ROTATIONAL_TRANSFORM_ANGLE 10
+
+// 変更したら、スレーブ側にも書き込む必要がある
+#define ROTATIONAL_TRANSFORM_ANGLE 0
 
 // #define MASTER_RIGHT
