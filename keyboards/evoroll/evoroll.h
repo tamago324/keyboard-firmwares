@@ -18,14 +18,6 @@
 
 #include "quantum.h"
 
-typedef union {
-    uint64_t raw;
-    struct {
-        uint8_t angle_idx;
-        uint8_t cpi_idx;
-    };
-} user_config_t;
-
 enum custom_keycodes {
     // 垂直 (縦) スクロール
     DRAG_SCROLL_VERTICAL = SAFE_RANGE,
@@ -33,8 +25,6 @@ enum custom_keycodes {
     TG_SCRL_V,
     // 水平 (横) スクロール
     DRAG_SCROLL_HORIZONTAL,
-    // ANGLE_UP,
-    CPI_UP,
     MY_SAFE_RANGE,
 };
 
