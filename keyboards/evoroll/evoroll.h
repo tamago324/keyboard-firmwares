@@ -25,6 +25,8 @@ enum custom_keycodes {
     TG_SCRL_V,
     // 水平 (横) スクロール
     DRAG_SCROLL_HORIZONTAL,
+    // BTN1 or スクロールOFF
+    BTN1_OR_SCRL_OFF,
     MY_SAFE_RANGE,
 };
 

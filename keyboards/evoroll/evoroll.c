@@ -27,8 +27,8 @@ struct ScrollState {
 struct ScrollState scroll_state;
 
 // スクロール速度を調整
-#define SCROLL_DIVISOR_H 16.0;
-#define SCROLL_DIVISOR_V 18.0;
+#define SCROLL_DIVISOR_H 20.0;
+#define SCROLL_DIVISOR_V 20.0;
 
 // 累積スクロール値
 float scroll_accumulated_h = 0;
@@ -75,13 +75,33 @@ void toggle_scroll_vertical(void) {
     scroll_state.enabled = !scroll_state.enabled;
     scroll_state.mode    = VERTICAL;
 }
-
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
 
     switch (keycode) {
+        // from: https://github.com/Yowkees/keyball/blob/ab40534f168bdc0d6baa69dabed4c82dfd4aaccc/qmk_firmware/keyboards/keyball/lib/keyball/keyball.c#L659
+        // process KC_MS_BTN1~8 by myself
+        // See process_action() in quantum/action.c for details.
+        case KC_MS_BTN1 ... KC_MS_BTN8: {
+            extern void register_mouse(uint8_t mouse_keycode, bool pressed);
+            register_mouse(keycode, record->event.pressed);
+            return false;
+        }
+
+        case BTN1_OR_SCRL_OFF:
+            // スクロールモードなら、OFFにする
+            if (scroll_state.enabled) {
+                scroll_state.enabled = false;
+                return false;
+            }
+
+            // BTN1
+            extern void register_mouse(uint8_t mouse_keycode, bool pressed);
+            register_mouse(KC_MS_BTN1, record->event.pressed);
+            return false;
+
         case DRAG_SCROLL_HORIZONTAL:
             set_scroll_horizontal(record->event.pressed);
             break;
