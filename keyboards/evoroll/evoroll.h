@@ -22,7 +22,9 @@ enum custom_keycodes {
     // 垂直 (縦) スクロール
     DRAG_SCROLL_VERTICAL = SAFE_RANGE,
     // 縦スクロールのトグル
-    TG_SCRL_V,
+    SCRL_V_TG,
+    // 縦スクロールON
+    SCRL_V_ON,
     // 水平 (横) スクロール
     DRAG_SCROLL_HORIZONTAL,
     // BTN1 or スクロールOFF

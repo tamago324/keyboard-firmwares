@@ -75,7 +75,19 @@ void toggle_scroll_vertical(void) {
     scroll_state.enabled = !scroll_state.enabled;
     scroll_state.mode    = VERTICAL;
 }
+
+void enable_scroll_vertical(void) {
+    scroll_state.enabled = true;
+    scroll_state.mode    = VERTICAL;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
+    // スクロールモード中には文字入力はできないようにする
+    if (scroll_state.enabled && IS_BASIC_KEYCODE(keycode)) {
+        return false;
+        hello world
+    }
+
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -111,11 +123,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             scroll_state.mode    = VERTICAL;
             break;
 
-        case TG_SCRL_V:
+        case SCRL_V_TG:
             if (record->event.pressed) {
                 toggle_scroll_vertical();
             }
-            break;
+            return false;
+            
+        case SCRL_V_ON:
+            if (record->event.pressed) {
+                enable_scroll_vertical();
+            }
+            return false;
 
         default:
             break;
