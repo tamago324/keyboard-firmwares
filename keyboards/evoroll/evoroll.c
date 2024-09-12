@@ -84,6 +84,10 @@ void enable_scroll_vertical(void) {
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // スクロールモード中には文字入力はできないようにする
     if (scroll_state.enabled && IS_BASIC_KEYCODE(keycode)) {
+        if (keycode == KC_ESC) {
+            // ESC なら、解除する
+            scroll_state.enabled = false;
+        }
         return false;
     }
 
