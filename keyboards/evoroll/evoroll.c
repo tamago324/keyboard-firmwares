@@ -85,7 +85,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     // スクロールモード中には文字入力はできないようにする
     if (scroll_state.enabled && IS_BASIC_KEYCODE(keycode)) {
         return false;
-        hello world
     }
 
     if (!process_record_user(keycode, record)) {
@@ -103,6 +102,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         }
 
         case BTN1_OR_SCRL_OFF:
+            // auto mouse layer への移行
+            // https://github.com/qmk/qmk_firmware/blob/b7729fa019833573b82d0742d9879388bfb6913c/quantum/pointing_device/pointing_device_auto_mouse.c#L406-L408
+            auto_mouse_keyevent(record->event.pressed);
+
             // スクロールモードなら、OFFにする
             if (scroll_state.enabled) {
                 scroll_state.enabled = false;
