@@ -22,6 +22,8 @@ enum ScrollMode { HORIZONTAL, VERTICAL };
 struct ScrollState {
     bool            enabled;
     enum ScrollMode mode;
+    bool            scrolled;
+    uint16_t        time;
 };
 
 struct ScrollState scroll_state;
@@ -35,6 +37,8 @@ float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    scroll_state.scrolled = false;
+
     // スクロール
     if (scroll_state.enabled) {
         switch (scroll_state.mode) {
@@ -52,6 +56,11 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
                 mouse_report.v = -((int8_t)scroll_accumulated_v);
                 scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
                 mouse_report.h = 0;
+
+                if (mouse_report.v != 0) {
+                    scroll_state.scrolled = true;
+                }
+
                 break;
 
             default:
@@ -122,8 +131,34 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             break;
 
         case DRAG_SCROLL_VERTICAL:
-            scroll_state.enabled = record->event.pressed;
-            scroll_state.mode    = VERTICAL;
+            // タップしたら、縦スクロールのON
+            // 長押ししていたら、スクロールモードにしない
+            // 長押し押しつつ、スクロールしたらMOとして扱う
+
+            if (record->event.pressed) {
+                if (scroll_state.enabled) {
+                    // すでにスクロールモードだった場合は解除する (トグルの挙動)
+                    scroll_state.enabled = false;
+                    break;
+                }
+
+                // まだスクロールモードではない場合は、有効にする
+                scroll_state.enabled = true;
+                scroll_state.mode    = VERTICAL;
+                scroll_state.time    = record->event.time;
+            } else {
+                // 押しつつ、スクロールしたらMOとして扱う
+                if (scroll_state.scrolled) {
+                    scroll_state.enabled = false;
+                    break;
+                }
+
+                // 長押ししていたら、スクロールモードにしない
+                if (TIMER_DIFF_16(record->event.time, scroll_state.time) > TAPPING_TERM) {
+                    scroll_state.enabled = false;
+                    break;
+                }
+            }
             break;
 
         case SCRL_V_TG:
@@ -131,7 +166,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 toggle_scroll_vertical();
             }
             return false;
-            
+
         case SCRL_V_ON:
             if (record->event.pressed) {
                 enable_scroll_vertical();
