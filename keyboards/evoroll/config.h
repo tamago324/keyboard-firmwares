@@ -43,7 +43,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ROTATIONAL_TRANSFORM_ANGLE 0
 
 #define PMW33XX_CPI 300
-
-// // auto mouse layer
-// #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
-// #define AUTO_MOUSE_TIME 60000 // 60秒 (max: 65535)

@@ -17,13 +17,10 @@
 #include "evoroll.h"
 
 #include "pointing_device.h"
-/* スクロール */
-enum ScrollMode { HORIZONTAL, VERTICAL };
 struct ScrollState {
-    bool            enabled;
-    enum ScrollMode mode;
-    bool            scrolled;
-    uint16_t        time;
+    bool     enabled;
+    bool     scrolled;
+    uint16_t time;
 };
 
 struct ScrollState scroll_state;
@@ -41,30 +38,14 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     // スクロール
     if (scroll_state.enabled) {
-        switch (scroll_state.mode) {
-            case HORIZONTAL:
-                scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
-                // 右に転がすと、右にスクロールする
-                mouse_report.h = ((int8_t)scroll_accumulated_h);
-                scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
-                mouse_report.v = 0;
-                break;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+        // 上に転がすと上にスクロールするようにしている
+        mouse_report.v = -((int8_t)scroll_accumulated_v);
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+        mouse_report.h = 0;
 
-            case VERTICAL:
-                scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
-                // 上に転がすと上にスクロールするようにしている
-                mouse_report.v = -((int8_t)scroll_accumulated_v);
-                scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
-                mouse_report.h = 0;
-
-                if (mouse_report.v != 0) {
-                    scroll_state.scrolled = true;
-                }
-
-                break;
-
-            default:
-                break;
+        if (mouse_report.v != 0) {
+            scroll_state.scrolled = true;
         }
 
         // カーソルが動かないようにする
@@ -75,31 +56,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     return mouse_report;
 }
 
-void set_scroll_horizontal(bool on) {
-    scroll_state.enabled = on;
-    scroll_state.mode    = HORIZONTAL;
-}
-
-void toggle_scroll_vertical(void) {
-    scroll_state.enabled = !scroll_state.enabled;
-    scroll_state.mode    = VERTICAL;
-}
-
-void enable_scroll_vertical(void) {
-    scroll_state.enabled = true;
-    scroll_state.mode    = VERTICAL;
-}
-
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    // スクロールモード中には文字入力はできないようにする
-    if (scroll_state.enabled && IS_BASIC_KEYCODE(keycode)) {
-        if (keycode == KC_ESC) {
-            // ESC なら、解除する
-            scroll_state.enabled = false;
-        }
-        return false;
-    }
-
     if (!process_record_user(keycode, record)) {
         return false;
     }
@@ -126,10 +83,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             register_mouse(KC_MS_BTN1, record->event.pressed);
             return false;
 
-        case DRAG_SCROLL_HORIZONTAL:
-            set_scroll_horizontal(record->event.pressed);
-            break;
-
         case DRAG_SCROLL_VERTICAL:
             // タップしたら、縦スクロールのON
             // 長押ししていたら、スクロールモードにしない
@@ -144,7 +97,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
                 // まだスクロールモードではない場合は、有効にする
                 scroll_state.enabled = true;
-                scroll_state.mode    = VERTICAL;
                 scroll_state.time    = record->event.time;
             } else {
                 // 押しつつ、スクロールしたらMOとして扱う
@@ -160,18 +112,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             break;
-
-        case SCRL_V_TG:
-            if (record->event.pressed) {
-                toggle_scroll_vertical();
-            }
-            return false;
-
-        case SCRL_V_ON:
-            if (record->event.pressed) {
-                enable_scroll_vertical();
-            }
-            return false;
 
         default:
             break;
