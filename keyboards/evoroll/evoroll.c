@@ -89,11 +89,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             // 長押し押しつつ、スクロールしたらMOとして扱う
 
             if (record->event.pressed) {
-                if (scroll_state.enabled) {
-                    // すでにスクロールモードだった場合は解除する (トグルの挙動)
-                    scroll_state.enabled = false;
-                    break;
-                }
+                // if (scroll_state.enabled) {
+                //     // すでにスクロールモードだった場合は解除する (トグルの挙動)
+                //     scroll_state.enabled = false;
+                //     break;
+                // }
 
                 // まだスクロールモードではない場合は、有効にする
                 scroll_state.enabled = true;
