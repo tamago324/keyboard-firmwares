@@ -109,19 +109,19 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 // Lower の Ctrl をおそうとして、a が入力されるのを防ぐため
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-         KC_TAB,  KC_W,    KC_E, KC_R,        KC_T,                 KC_Y, KC_U,  KC_I,    KC_O,    KC_BSPC,
+         KC_TAB,  KC_W,    KC_E, KC_R,        KC_T,                 KC_Y, KC_U,  KC_I,    KC_O,    XXXXXXX,
   LCTL_T(KC_A),   KC_S,    KC_D, KC_F,        KC_G,                 KC_H, KC_J,  KC_K,    KC_L,    KC_P,
   LSFT_T(KC_Z),   KC_X,    KC_C, ALT_T(KC_V), KC_B,                 KC_N, KC_M,  KC_COMM, KC_DOT,  ALT_T(KC_Q),
                                   LOWER,  LCTL_T(KC_SPACE),         KC_BTN4, BTN1_OR_SCRL_OFF, DRAG_SCROLL_VERTICAL, SFT_T(KC_ENT), RAISE
   ),
   [_LOWER] = LAYOUT(
       XXXXXXX, JP_AT,   KC_HASH, KC_DLR,  JP_CIRC,          JP_ASTR, JP_AMPR, JP_LPRN, JP_RPRN, XXXXXXX,
-      KC_LCTL, KC_ESC, KC_BSPC, KC_ENT, KC_DELETE,        KC_SLSH, JP_MINS,  JP_LBRC, JP_RBRC, S(KC_SLSH),
+      KC_LCTL, KC_ESC, KC_BSPC, KC_ENT, KC_DELETE,        KC_BSPC, JP_MINS,  JP_LBRC, JP_RBRC, S(KC_SLSH),
       OSL(_WIN), KC_TAB, ALT_S_TAB, ALT_TAB,  KC_EXLM,   JP_UNDS, JP_EQL, JP_LCBR, JP_RCBR, XXXXXXX,
                                  _______, _______,       KC_BTN5, ALT_TAB_BTN1_BTN2, KC_BTN3, SFT_T(LALT(KC_ENT)), _______
   ),
   [_RAISE] = LAYOUT(
-      XXXXXXX, KC_4, KC_5, KC_6, XXXXXXX,                 XXXXXXX,  XXXXXXX, JU_QUOT, JU_QUOT, KC_DELETE,
+      XXXXXXX, KC_4, KC_5, KC_6, KC_SLSH,                 XXXXXXX,  XXXXXXX, JU_QUOT, JU_QUOT, XXXXXXX,
       XXXXXXX, KC_1, KC_2, KC_3, JP_COLN,                 KC_LEFT,  KC_DOWN,  KC_UP,   KC_RGHT, XXXXXXX,
       KC_LSFT, KC_7, KC_8, KC_9, JU_SCLN,                 KC_HOME,  KC_END,  KC_COMM, KC_DOT,  XXXXXXX,
                                  _______, LCTL_T(KC_0),   XXXXXXX, XXXXXXX, XXXXXXX, _______, _______
