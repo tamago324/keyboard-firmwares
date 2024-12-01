@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PMW33XX_LIFTOFF_DISTANCE 0x00
 
 // 変更したら、スレーブ側にも書き込む必要がある
-// v2 は -25 がいいかも
-#define ROTATIONAL_TRANSFORM_ANGLE -25
+#define ROTATIONAL_TRANSFORM_ANGLE 7
 
 #define PMW33XX_CPI 300
