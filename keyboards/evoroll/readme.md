@@ -17,7 +17,7 @@ DevContainer の環境で作成する
 
 ```sh
 # QMK
-$ fwbuild qmk evoroll:tamago324
+$ fwbuild qmk compile evoroll:tamago324
 ```
 
 ## 参考
