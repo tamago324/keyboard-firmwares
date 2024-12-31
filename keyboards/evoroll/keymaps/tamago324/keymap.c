@@ -44,11 +44,6 @@ enum custom_km_keycodes {
     ALT_TAB_BTN1_BTN2, // ALT+TAB の操作中は、BTN1でそれ以外はBTN2
 };
 
-// void pointing_device_init_user(void) {
-//     set_auto_mouse_layer(_MOUSE); // only required if AUTO_MOUSE_DEFAULT_LAYER is not set to index of <mouse_layer>
-//     set_auto_mouse_enable(true);         // always required before the auto mouse feature will work
-// }
-
 enum combo_events {
     CMB_EQ_LEFT_ARROW,
     CMB_MINUS_LEFT_ARROW,
@@ -118,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX, JP_AT,   KC_HASH, KC_DLR,  JP_CIRC,          JP_ASTR, JP_AMPR, JP_LPRN, JP_RPRN, XXXXXXX,
       KC_LCTL, KC_ESC, KC_BSPC, KC_ENT, KC_DELETE,        KC_BSPC, JP_MINS,  JP_LBRC, JP_RBRC, S(KC_SLSH),
       OSL(_WIN), KC_TAB, ALT_S_TAB, ALT_TAB,  KC_EXLM,   JP_UNDS, JP_EQL, JP_LCBR, JP_RCBR, XXXXXXX,
-                                 _______, _______,       KC_BTN5, ALT_TAB_BTN1_BTN2, KC_BTN3, SFT_T(LALT(KC_ENT)), _______
+                                 _______, _______,       KC_BTN5, ALT_TAB_BTN1_BTN2, KC_BTN3, KC_LSFT, _______
   ),
   [_RAISE] = LAYOUT(
-      XXXXXXX, KC_4, KC_5, KC_6, KC_SLSH,                 XXXXXXX,  XXXXXXX, JU_QUOT, JU_QUOT, XXXXXXX,
+      XXXXXXX, KC_4, KC_5, KC_6, KC_SLSH,                 XXXXXXX,  JP_ASTR, JU_QUOT, JU_QUOT, XXXXXXX,
       XXXXXXX, KC_1, KC_2, KC_3, JP_COLN,                 KC_LEFT,  KC_DOWN,  KC_UP,   KC_RGHT, XXXXXXX,
       KC_LSFT, KC_7, KC_8, KC_9, JU_SCLN,                 KC_HOME,  KC_END,  KC_COMM, KC_DOT,  XXXXXXX,
                                  _______, LCTL_T(KC_0),   XXXXXXX, XXXXXXX, XXXXXXX, _______, _______
@@ -129,14 +124,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] =  LAYOUT(
       XXXXXXX, KC_F2, KC_PERC, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, JP_DQUO, JP_DQUO, XXXXXXX,
       KC_LCTL, JP_TILD, JP_PIPE, JP_BSLS, XXXXXXX,      C(KC_PGUP), C(KC_DOWN), C(KC_UP), C(KC_PGDN), XXXXXXX,
-      XXXXXXX, C(KC_SPACE), XXXXXXX, JP_GRV,  XXXXXXX,  KC_F7, JP_PLUS,  KC_F10, XXXXXXX, XXXXXXX,
+      XXXXXXX, C(KC_SPACE), XXXXXXX, KC_F10,  XXXXXXX,  KC_F7, JP_PLUS,  JP_GRV, JP_GRV, XXXXXXX,
                                   _______, _______,     XXXXXXX, XXXXXXX, XXXXXXX, _______, _______
   ),
   [_WIN] = LAYOUT(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, G(KC_DOT), G(KC_D), XXXXXXX, KC_F12,      XXXXXXX, XXXXXXX, XXXXXXX, G(KC_L), XXXXXXX,
     XXXXXXX,  KC_LGUI, SWIN(KC_S), G(KC_V), XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                              _______, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, G(KC_ENT), _______
+                              _______, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______
   ),
 };
 // clang-format on
@@ -292,7 +287,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_E:
         case KC_O:
         case KC_U:
-        case KC_I:
             // z と同時に押したら、zX にする
             if (record->event.pressed) {
                 if (zshift_pressed) {
