@@ -113,8 +113,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
             break;
 
-        // スクロールモードのときには、S で Chromeで、左のタブに移動する
-        case KC_S:
+        // スクロールモードのときには、D で Chromeで、左のタブに移動する
+        case KC_D:
             if (record->event.pressed) {
                 if (scroll_state.enabled) {
                     tap_code16(C(KC_PGUP));
