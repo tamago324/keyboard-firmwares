@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   LOWER,  LCTL_T(KC_SPACE),         KC_BTN4, BTN1_OR_SCRL_OFF, DRAG_SCROLL_VERTICAL, SFT_T(KC_ENT), RAISE
   ),
   [_LOWER] = LAYOUT(
-      XXXXXXX, JP_AT,   KC_HASH, KC_DLR,  JP_CIRC,          JP_ASTR, JP_AMPR, JP_LPRN, JP_RPRN, XXXXXXX,
+      XXXXXXX, JP_AT,   KC_HASH, KC_DLR,  JP_CIRC,          JP_AMPR, JP_ASTR, JP_LPRN, JP_RPRN, XXXXXXX,
       KC_LCTL, KC_ESC, KC_BSPC, KC_ENT, KC_DELETE,        KC_BSPC, JP_MINS,  JP_LBRC, JP_RBRC, S(KC_SLSH),
       OSL(_WIN), KC_TAB, ALT_S_TAB, ALT_TAB,  KC_EXLM,   JP_UNDS, JP_EQL, JP_LCBR, JP_RCBR, XXXXXXX,
                                  _______, _______,       KC_BTN5, ALT_TAB_BTN1_BTN2, KC_BTN3, KC_LSFT, _______
