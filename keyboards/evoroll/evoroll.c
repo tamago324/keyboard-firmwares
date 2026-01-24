@@ -131,6 +131,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
 
+        // スクロールモードのときには、R で F4 (スプレットシートの、繰り返しを実行)
+        case KC_R:
+            if (record->event.pressed) {
+                if (scroll_state.enabled) {
+                    tap_code16(KC_F4);
+                    return false;
+                }
+            }
 
         default:
             break;
