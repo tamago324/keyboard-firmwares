@@ -113,6 +113,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             }
             break;
 
+        // スクロールモードのときには、S で Chromeで、左のタブに移動する
+        case KC_S:
+            if (record->event.pressed) {
+                if (scroll_state.enabled) {
+                    tap_code16(C(KC_PGUP));
+                    return false;
+                }
+            }
+
+        // スクロールモードのときには、F で Chromeで、右のタブに移動する
+        case KC_F:
+            if (record->event.pressed) {
+                if (scroll_state.enabled) {
+                    tap_code16(C(KC_PGDN));
+                    return false;
+                }
+            }
+
+
         default:
             break;
     }
